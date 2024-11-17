@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    public int cardID;  // Unique identifier for the card
-    public Image frontImage;
-    public Image backImage;
+    [SerializeField] private int cardID;  // Unique identifier for the card
+    [SerializeField] private Image frontImage;
+    [SerializeField] private Image backImage;
 
     private CardData cardData;
     private bool isFlipped = false;
@@ -52,6 +52,7 @@ public class Card : MonoBehaviour
         });
     }
 
+    public int CardID => cardID;
     // Disable the card (after a match is found)
     public void DisableCard()
     {
@@ -63,5 +64,10 @@ public class Card : MonoBehaviour
     {
         matchedAnim?.PlayAnimations();
         
+    }
+
+    public void ResetCard() {
+        isFlipped = false;
+        isMatched = false;
     }
 }

@@ -12,13 +12,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Title("UI Elements")]
-    public TextMeshProUGUI movesText;
-    public TextMeshProUGUI timerText;
-    public Transform cardParent;
-    public GameObject cardPrefab;
+    [SerializeField] private TextMeshProUGUI movesText;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Transform cardParent;
+    [SerializeField] private GameObject cardPrefab;
 
     [Title("Card Database")]
-    public CardDatabase cardDatabase;
+    [SerializeField] private CardDatabase cardDatabase;
 
     private List<Card> cards = new List<Card>();
     private List<Card> flippedCards = new List<Card>(); // Track flipped cards
@@ -61,15 +61,15 @@ public class GameManager : MonoBehaviour
     {
         difficultyLevel = PlayerPrefs.GetInt("DifficultyLevel", 1); // Default to level 1 if not set
         coroutine = null;
-
+        PoolingManager.Instance.CreatePool("Cards",cardPrefab,30,cardParent);
         GenerateCards();
     }
 
     private void GenerateCards()
     {
-        foreach (Transform child in cardParent)
+        foreach (Card child in cards)
         {
-            Destroy(child.gameObject);
+            PoolingManager.Instance.ReturnToPool("Cards",child.gameObject);
         }
         cards.Clear();
 
@@ -93,8 +93,10 @@ public class GameManager : MonoBehaviour
 
         foreach (CardData cardData in cardsToSpawn)
         {
-            var cardObj = Instantiate(cardPrefab, cardParent);
+            GameObject cardObj = PoolingManager.Instance.SpawnFromPool("Cards",Vector3.zero,Quaternion.Euler(0,0,0));
+            cardObj.GetComponent<RectTransform>().localPosition = Vector3.zero;
             Card cardComponent = cardObj.GetComponent<Card>();
+            cardComponent.ResetCard();
             cardComponent.Initialize(cardData);
             cards.Add(cardComponent);
         }
@@ -152,7 +154,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f); // Allow flip animation to complete
 
         // Check if the cards match
-        if (flippedCards[0].cardID == flippedCards[1].cardID)
+        if (flippedCards[0].CardID == flippedCards[1].CardID)
         {
             flippedCards[0].DisableCard();
             flippedCards[1].DisableCard();
@@ -202,6 +204,8 @@ public class GameManager : MonoBehaviour
     {
         StopCoroutine(coroutine);
         gameStarted = false;
+        flippedCards = new List<Card>();
+        isFlippingCards = false;
         GenerateCards();
         OnRestart?.Invoke();
     }

@@ -1333,7 +1333,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  delay: 0.5
+  delay: 0.2
 --- !u!4 &609987205
 Transform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,10 @@ public class LeaderboardManager : MonoBehaviour
 
     private List<GameObject> entryList = new List<GameObject>();
 
+    private void Start()
+    {
+        PoolingManager.Instance.CreatePool("leaderboardEntry", leaderboardEntryPrefab, 12, contentTransform);
+    }
     /// <summary>
     /// Populate leaderboard UI with data from Firebase.
     /// </summary>
@@ -20,7 +24,7 @@ public class LeaderboardManager : MonoBehaviour
         // Clear existing entries
         foreach (GameObject entry in entryList)
         {
-            Destroy(entry);
+            PoolingManager.Instance.ReturnToPool("leaderboardEntry",entry);
         }
         entryList.Clear();
 
@@ -36,7 +40,7 @@ public class LeaderboardManager : MonoBehaviour
         foreach (var entry in leaderboardEntries)
         {
             // Instantiate a new leaderboard entry from the prefab
-            GameObject newEntry = Instantiate(leaderboardEntryPrefab, contentTransform);
+            GameObject newEntry = PoolingManager.Instance.SpawnFromPool("leaderboardEntry", Vector3.zero, Quaternion.Euler(0, 0, 0));
             entryList.Add(newEntry);
 
             // Set up the leaderboard entry using the prefab's script
@@ -51,6 +55,10 @@ public class LeaderboardManager : MonoBehaviour
                     moves: entry.Value.moves
                 );
             }
+
+            // Adjust the sibling index to match the rank
+            newEntry.transform.SetSiblingIndex(rank - 1);
+
             yield return null;
             rank++;
         }

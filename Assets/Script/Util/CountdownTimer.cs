@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,9 +12,10 @@ public class CountdownTimer : MonoBehaviour
     [SerializeField] private float countdownTime = 3f;
     [SerializeField] private TextMeshProUGUI countdownText;
 
-    [Header("Events")]
-    public UnityEvent OnCountDownStart;
-    public UnityEvent OnCountDownEnd;
+    [Title("Events")]
+    [FoldoutGroup("Events")] public UnityEvent OnCountDownStart;
+    [FoldoutGroup("Events")] public UnityEvent OnCountDown;
+    [FoldoutGroup("Events")] public UnityEvent OnCountDownEnd;
 
     public void Start()
     {
@@ -29,7 +31,7 @@ public class CountdownTimer : MonoBehaviour
         {
             // Update the countdown text
             countdownText.text = Mathf.Ceil(countdownTime).ToString();
-
+            OnCountDown?.Invoke();
             // Wait for 1 second before updating again
             yield return new WaitForSeconds(1f);
 

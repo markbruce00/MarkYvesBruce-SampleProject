@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "835620291648",
+    "firebase_url": "https://memorygametreat-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "memorygametreat",
+    "storage_bucket": "memorygametreat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835620291648:android:08e4eb39d6f4d49620cba5",
+        "android_client_info": {
+          "package_name": "com.TREAT.MemoryGame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn8kq6mtJlFN_k6-sS2Df9nit6bPqTimM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

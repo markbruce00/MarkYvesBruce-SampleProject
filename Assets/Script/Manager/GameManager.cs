@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     {
         difficultyLevel = PlayerPrefs.GetInt("DifficultyLevel", 1); // Default to level 1 if not set
         coroutine = null;
+
         PoolingManager.Instance.CreatePool("Cards",cardPrefab,30,cardParent);
         GenerateCards();
     }

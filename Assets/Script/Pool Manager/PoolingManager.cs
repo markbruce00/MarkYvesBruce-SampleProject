@@ -32,8 +32,15 @@ public class PoolingManager : MonoBehaviour
     {
         if (poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning($"Pool with tag {tag} already exists.");
-            return;
+            if (!IsObjectAvailable(tag))
+            {
+                poolDictionary.Remove(tag);
+            }
+            else
+            {
+                Debug.LogWarning($"Pool with tag {tag} already exists.");
+                return;
+            }
         }
 
         Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -47,6 +54,26 @@ public class PoolingManager : MonoBehaviour
         }
 
         poolDictionary.Add(tag, objectPool);
+    }
+
+    public bool IsObjectAvailable(string tag)
+    {
+        if (poolDictionary.TryGetValue(tag, out Queue<GameObject> objectPool))
+        {
+            // Remove any null objects from the pool
+            while (objectPool.Count > 0 && objectPool.Peek() == null)
+            {
+                objectPool.Dequeue();
+            }
+
+            // Check if there are any valid objects remaining in the queue
+            return objectPool.Count > 0;
+        }
+        else
+        {
+            Debug.LogWarning($"No pool with tag {tag} found.");
+            return false;
+        }
     }
 
     /// <summary>

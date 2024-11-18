@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="firebase_database_url" translatable="false">https://memorygametreat-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+  <string name="gcm_defaultSenderId" translatable="false">835620291648</string>
+  <string name="google_storage_bucket" translatable="false">memorygametreat.firebasestorage.app</string>
+  <string name="project_id" translatable="false">memorygametreat</string>
+  <string name="google_api_key" translatable="false">AIzaSyCn8kq6mtJlFN_k6-sS2Df9nit6bPqTimM</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCn8kq6mtJlFN_k6-sS2Df9nit6bPqTimM</string>
+  <string name="google_app_id" translatable="false">1:835620291648:android:08e4eb39d6f4d49620cba5</string>
+</resources>

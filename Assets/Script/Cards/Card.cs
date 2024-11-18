@@ -6,12 +6,14 @@ public class Card : MonoBehaviour
     [SerializeField] private int cardID;  // Unique identifier for the card
     [SerializeField] private Image frontImage;
     [SerializeField] private Image backImage;
+    [SerializeField] private Button cardBtn;
 
     private CardData cardData;
     private bool isFlipped = false;
     private bool isMatched = false;
 
     [SerializeField] private UIAnimator matchedAnim;
+    [SerializeField] private ParticleSystem matchedParticle;
 
     // Initialize the card with card data
     public void Initialize(CardData data)
@@ -21,6 +23,7 @@ public class Card : MonoBehaviour
         frontImage.sprite = cardData.frontSprite;
         backImage.gameObject.SetActive(true);  // Show back by default
         frontImage.gameObject.SetActive(false); // Hide front until flipped
+        matchedParticle.gameObject.SetActive(false);
     }
 
     // Handle card click event
@@ -57,17 +60,18 @@ public class Card : MonoBehaviour
     public void DisableCard()
     {
         isMatched = true;
-        GetComponent<Button>().interactable = false; // Disable interaction with this card
+        cardBtn.interactable = false; // Disable interaction with this card
     }
 
-    public void PlayMatchedAnimation()
-    {
+    public void PlayMatchedAnimation() { 
         matchedAnim?.PlayAnimations();
-        
+        matchedParticle.gameObject.SetActive(true);
     }
 
     public void ResetCard() {
         isFlipped = false;
         isMatched = false;
+        cardBtn.interactable = true; // enable interaction with this card
+
     }
 }

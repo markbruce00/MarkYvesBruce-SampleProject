@@ -19,7 +19,12 @@
 - Utilized Coroutine-based **card flip animation** and **card matched animation**.
 - Created reusable **ShuffleUtility** to randomize card order.
 - Encapsulation for maintaning clean code
-- Object Pooling Pattern for optimization
+- Object Pooling Pattern for optimization (Cards, Leaderboard Entry, Audio Source)
+- Modular Game Manager can add Levels for future improvements without affecting the script.
+
+## Other Details
+- intended not to implement show player highscore, basically player can input a name and save highscore with that name same as arcade games leaderboards in amusement parks.
+   
 
 
 ### Features
